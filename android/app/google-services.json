@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "146517873593",
+    "project_id": "flutter-osemeador-51045",
+    "storage_bucket": "flutter-osemeador-51045.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146517873593:android:8641d046ef5d94eaacdc68",
+        "android_client_info": {
+          "package_name": "com.osemeador.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAZaorjQ8X8NJI1ILIQCG2XgNH3r2vvpE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
