@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterosemeador/componentes/decoracao_campo_autenticacao.dart';
 import 'package:flutterosemeador/servicos/autenticacao_servico.dart';
+import 'package:flutterosemeador/telas/tela_menu.dart'; // Importando a TelaMenu
 
 class AutenticacaoTela extends StatefulWidget {
   const AutenticacaoTela({super.key});
@@ -13,12 +14,13 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
   bool queroEntrar = true;
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _emailcontroller = TextEditingController();
-  TextEditingController _senhacontroller = TextEditingController();
-  TextEditingController _confirmarSenhacontroller = TextEditingController();  // Adicionado
-  TextEditingController _nomecontroller = TextEditingController();
+  final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _senhacontroller = TextEditingController();
+  final TextEditingController _confirmarSenhacontroller =
+      TextEditingController(); // Adicionado
+  final TextEditingController _nomecontroller = TextEditingController();
 
-  AutenticacaoServico _autenServico = AutenticacaoServico();
+  final AutenticacaoServico _autenServico = AutenticacaoServico();
 
   @override
   Widget build(BuildContext context) {
@@ -93,8 +95,8 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
                       children: [
                         TextFormField(
                           controller: _confirmarSenhacontroller,
-                          decoration:
-                              getAuthenticationInputDecoration("Confirme Senha"),
+                          decoration: getAuthenticationInputDecoration(
+                              "Confirme Senha"),
                           validator: (String? value) {
                             if (value == null || value.isEmpty) {
                               return "A confirmação de senha não pode ser vazia";
@@ -164,15 +166,29 @@ class _AutenticacaoTelaState extends State<AutenticacaoTela> {
 
       try {
         if (queroEntrar) {
+          // Tentativa de login
           await _autenServico.entrarUsuario(email: email, senha: senha);
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Login bem-sucedido!')),
           );
+
+          // Navegar para a Tela de Menu após o login
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const TelaMenu()),
+          );
         } else {
+          // Tentativa de cadastro
           await _autenServico.cadastrarUsuario(
               nome: nome, email: email, senha: senha);
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Cadastro realizado com sucesso!')),
+          );
+
+          // Navegar para a Tela de Menu após o cadastro
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const TelaMenu()),
           );
         }
       } catch (e) {

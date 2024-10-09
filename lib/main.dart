@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart'; // Importar o Firebase
-import 'firebase_options.dart'; // Importar as opções geradas pelo CLI
-import 'telas/autenticacao_tela.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutterosemeador/telas/jogos_tela.dart'; // Importar a tela de jogos
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform, // Inicializando Firebase
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  // Removendo const do MyApp
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp( // Removendo const aqui
       debugShowCheckedModeBanner: false,
       title: 'App de Autenticação',
-      home: AutenticacaoTela(),
+      home: JogosTela(), // Aqui não precisa ser const
     );
   }
 }
