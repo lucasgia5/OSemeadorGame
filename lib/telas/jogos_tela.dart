@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart'; 
 import 'package:flutterosemeador/componentes/flame_game_widget.dart'; // Importando a classe MyGame corretamente
 import 'package:flame/game.dart'; // Isso importa o GameWidget corretamente.
-
+import 'package:flutterosemeador/telas/telas_formas_geometricas/dificuldades.dart'; // Importe a tela de seleção de dificuldade
 
 // Classe principal que representa a tela de jogos
 class JogosTela extends StatelessWidget {
@@ -45,10 +45,17 @@ class JogosTela extends StatelessWidget {
                     mainAxisSpacing: 28.0,
                     crossAxisSpacing: 23.0,
                     children: [
-                      buildGameTile("Datas Comemorativas"),
-                      buildGameTile("Folclore"),
-                      buildGameTile("Formas Geométricas"),
-                      buildGameTile("Futebol"),
+                      buildGameTile(context, "Datas Comemorativas", null),
+                      buildGameTile(context, "Folclore", null),
+                      buildGameTile(context, "Formas Geométricas", () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DifficultySelectionScreen(),
+                          ),
+                        );
+                      }), // Adicionando a navegação para "Formas Geométricas"
+                      buildGameTile(context, "Futebol", null),
                     ],
                   ),
                 ),
@@ -72,27 +79,30 @@ class JogosTela extends StatelessWidget {
             width: 250,
             padding: const EdgeInsets.all(10.0),
             alignment: Alignment.center,
-            child: buildGameTile("Outro Jogo"),
+            child: buildGameTile(context, "Outro Jogo", null),
           ),
         ],
       ),
     );
   }
 
-  Widget buildGameTile(String title) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.orangeAccent,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Center(
-        child: Text(
-          title,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.white),
+  Widget buildGameTile(BuildContext context, String title, VoidCallback? onTap) {
+    return InkWell(
+      onTap: onTap, // Chama o onTap se não for null
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.orangeAccent,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white),
+          ),
         ),
       ),
     );
