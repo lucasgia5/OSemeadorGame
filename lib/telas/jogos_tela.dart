@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterosemeador/componentes/flame_game_widget.dart'; // Importando a classe MyGame corretamente
 import 'package:flame/game.dart'; // Isso importa o GameWidget corretamente.
 import 'package:flutterosemeador/telas/telas_formas_geometricas/dificuldades.dart'; // Importe a tela de seleção de dificuldade
+import 'package:flutterosemeador/telas/telas_datas_comemorativas/datas_comemorativas.dart';
 
 // Classe principal que representa a tela de jogos
 class JogosTela extends StatelessWidget {
@@ -45,7 +46,14 @@ class JogosTela extends StatelessWidget {
                     mainAxisSpacing: 28.0,
                     crossAxisSpacing: 23.0,
                     children: [
-                      buildGameTile(context, "Datas Comemorativas", null),
+                      buildGameTile(context, "Datas Comemorativas", () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PuzzleGameApp(),
+                          ),
+                        );
+                      }),
                       buildGameTile(context, "Folclore", null),
                       buildGameTile(context, "Formas Geométricas", () {
                         Navigator.push(
@@ -73,13 +81,6 @@ class JogosTela extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          Container(
-            height: 200,
-            width: 250,
-            padding: const EdgeInsets.all(10.0),
-            alignment: Alignment.center,
-            child: buildGameTile(context, "Outro Jogo", null),
           ),
         ],
       ),
