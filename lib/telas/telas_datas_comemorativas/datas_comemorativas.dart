@@ -77,7 +77,6 @@ class DifficultySelectionScreenDatas extends StatelessWidget {
   }
 }
 
-
 class PuzzleGameScreen extends StatefulWidget {
   final String difficulty;
   const PuzzleGameScreen({Key? key, required this.difficulty}) : super(key: key);
@@ -89,14 +88,14 @@ class PuzzleGameScreen extends StatefulWidget {
 class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
   final List<PuzzleLevel> _allLevels = [
     PuzzleLevel(difficulty: 'Fácil', puzzle: 'N A T _ _', answer: 'NATAL', imagePath: 'assets/imagens/datas_comemorativas/papai_noel_correto.png'),
-    PuzzleLevel(difficulty: 'Fácil', puzzle: 'A N _ N _ _ O', answer: 'ANO NOVO', imagePath: 'assets/ano_novo.png'),
-    PuzzleLevel(difficulty: 'Fácil', puzzle: 'P A _ C _ A', answer: 'PASCOA', imagePath: 'assets/pascoa.png'),
-    PuzzleLevel(difficulty: 'Médio', puzzle: 'D I _ D _ S C R I _ _ Ç _ S', answer: 'DIA DAS CRIANCAS', imagePath: 'assets/dia_das_criancas.png'),
-    PuzzleLevel(difficulty: 'Médio', puzzle: 'H A L _ _ W _ _ _', answer: 'HALLOWEEN', imagePath: 'assets/halloween.png'),
-    PuzzleLevel(difficulty: 'Médio', puzzle: 'T I R _ _ _ N T E _', answer: 'TIRADENTES', imagePath: 'assets/tiradentes.png'),
-    PuzzleLevel(difficulty: 'Difícil', puzzle: 'P R O C _ _ M A Ç Ã _  D _ R E P _ _ _ _ C A', answer: 'PROCLAMACAO DA REPUBLICA', imagePath: 'assets/proclamacao_republica.png'),
-    PuzzleLevel(difficulty: 'Difícil', puzzle: 'C O N S _ _ _ _ C I A  N E G_ _', answer: 'CONSCIENCIA NEGRA', imagePath: 'assets/consciencia_negra.png'),
-    PuzzleLevel(difficulty: 'Difícil', puzzle: 'I N D E P _ _ _ D E N _ I A D _ B R A _ _', answer: 'INDEPENDENCIA DO BRASIL', imagePath: 'assets/independencia_brasil.png'),
+    PuzzleLevel(difficulty: 'Fácil', puzzle: 'A N _ N _ _ O', answer: 'ANO NOVO', imagePath: 'assets/imagens/datas_comemorativas/ano_novo.png'),
+    PuzzleLevel(difficulty: 'Fácil', puzzle: 'P A _ C _ A', answer: 'PASCOA', imagePath: 'assets/imagens/datas_comemorativas/pascoa.png'),
+    PuzzleLevel(difficulty: 'Médio', puzzle: 'D I _ D _ S C R I _ _ Ç _ S', answer: 'DIA DAS CRIANCAS', imagePath: 'assets/imagens/datas_comemorativas/dia_das_craincas.png'),
+    PuzzleLevel(difficulty: 'Médio', puzzle: 'H A L _ _ W _ _ _', answer: 'HALLOWEEN', imagePath: 'assets/imagens/datas_comemorativas/halloween.png'),
+    PuzzleLevel(difficulty: 'Médio', puzzle: 'T I R _ _ _ N T E _', answer: 'TIRADENTES', imagePath: 'assets/imagens/datas_comemorativas/tiradentes.webp'),
+    PuzzleLevel(difficulty: 'Difícil', puzzle: 'P R O C _ _ M A Ç Ã _  D _ R E P _ _ _ _ C A', answer: 'PROCLAMACAO DA REPUBLICA', imagePath: 'assets/imagens/datas_comemorativas/proclamacao_certa.png'),
+    PuzzleLevel(difficulty: 'Difícil', puzzle: 'C O N S _ _ _ _ C I A  N E G_ _', answer: 'CONSCIENCIA NEGRA', imagePath: 'assets/imagens/datas_comemorativas/consciencia_certa.png'),
+    PuzzleLevel(difficulty: 'Difícil', puzzle: 'I N D E P _ _ _ D E N _ I A D _ B R A _ _', answer: 'INDEPENDENCIA DO BRASIL', imagePath: 'assets/imagens/datas_comemorativas/independencia.png'),
   ];
 
   late List<PuzzleLevel> _levels;

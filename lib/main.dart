@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutterosemeador/telas/jogos_tela.dart'; // Importar a tela de jogos
 import 'firebase_options.dart';
 import 'package:flutterosemeador/telas/telas_datas_comemorativas/datas_comemorativas.dart';
+import 'package:flutterosemeador/telas/telas_quebra_cabeca/quebra_cabeca_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       // Removendo const aqui
       debugShowCheckedModeBanner: false,
       title: 'App de Autenticação',
-      home: PuzzleGameApp(), // Aqui não precisa ser const
+      home: JogosTela(), // Aqui não precisa ser const
     );
   }
 }

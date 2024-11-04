@@ -1,85 +1,56 @@
-import 'package:flutter/material.dart'; 
-import 'package:flutterosemeador/componentes/flame_game_widget.dart'; // Importando a classe MyGame corretamente
-import 'package:flame/game.dart'; // Isso importa o GameWidget corretamente.
-import 'package:flutterosemeador/telas/telas_formas_geometricas/dificuldades.dart'; // Importe a tela de seleção de dificuldade
+import 'package:flutter/material.dart';
+import 'package:flutterosemeador/telas/telas_formas_geometricas/dificuldades.dart';
 import 'package:flutterosemeador/telas/telas_datas_comemorativas/datas_comemorativas.dart';
 
-// Classe principal que representa a tela de jogos
 class JogosTela extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, 
-      body: Column( 
+      backgroundColor: Colors.white,
+      body: Column(
         children: [
           const Padding(
             padding: EdgeInsets.all(36.0),
             child: Text(
               "Escolha seu jogo",
               style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.orange),
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.orange,
+              ),
             ),
           ),
-          Container( 
+          Container(
             height: 500,
-            child: Row( 
-              children: [
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    child: SizedBox(
-                      width: 100,
-                      height: 200,
-                      child: GameWidget( // Usando o GameWidget para carregar MyGame
-                        game: MyGame(),
-                      ),
-                    ),
-                  ),
+            child: Center( // Centraliza os botões
+              child: Container(
+                width: 450,
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 28.0,
+                  crossAxisSpacing: 23.0,
+                  children: [
+                    buildGameTile(context, "Datas Comemorativas", () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PuzzleGameApp(),
+                        ),
+                      );
+                    }),
+                    buildGameTile(context, "Folclore", null),
+                    buildGameTile(context, "Formas Geométricas", () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DifficultySelectionScreen(),
+                        ),
+                      );
+                    }),
+                    buildGameTile(context, "Futebol", null),
+                  ],
                 ),
-                Container( 
-                  height: 500,
-                  width: 450,
-                  child: GridView.count( 
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 28.0,
-                    crossAxisSpacing: 23.0,
-                    children: [
-                      buildGameTile(context, "Datas Comemorativas", () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PuzzleGameApp(),
-                          ),
-                        );
-                      }),
-                      buildGameTile(context, "Folclore", null),
-                      buildGameTile(context, "Formas Geométricas", () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DifficultySelectionScreen(),
-                          ),
-                        );
-                      }), // Adicionando a navegação para "Formas Geométricas"
-                      buildGameTile(context, "Futebol", null),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.centerRight,
-                    child: SizedBox(
-                      width: 100,
-                      height: 200,
-                      child: GameWidget( // Usando o GameWidget para carregar MyGame
-                        game: MyGame(),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ],
@@ -89,7 +60,7 @@ class JogosTela extends StatelessWidget {
 
   Widget buildGameTile(BuildContext context, String title, VoidCallback? onTap) {
     return InkWell(
-      onTap: onTap, // Chama o onTap se não for null
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           color: Colors.orangeAccent,
@@ -100,9 +71,10 @@ class JogosTela extends StatelessWidget {
             title,
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
