@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterosemeador/telas/telas_formas_geometricas/dificuldades.dart';
 import 'package:flutterosemeador/telas/telas_datas_comemorativas/datas_comemorativas.dart';
+import 'package:flutterosemeador/telas/telas_jogo_memoria/tela_inicial_memoria.dart';
 
 class JogosTela extends StatelessWidget {
   @override
@@ -38,7 +39,14 @@ class JogosTela extends StatelessWidget {
                         ),
                       );
                     }),
-                    buildGameTile(context, "Folclore", null),
+                    buildGameTile(context, "Folclore", () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TelaInicial(),
+                        ),
+                      );
+                    }),
                     buildGameTile(context, "Formas Geométricas", () {
                       Navigator.push(
                         context,
