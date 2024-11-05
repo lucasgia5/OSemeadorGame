@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterosemeador/telas/jogos_tela.dart';  // Importa o arquivo jogos_tela.dart
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 void main() {
   runApp(const PuzzleGameApp());
@@ -18,14 +20,17 @@ class PuzzleGameApp extends StatelessWidget {
   }
 }
 
+
 class DifficultySelectionScreenDatas extends StatelessWidget {
   const DifficultySelectionScreenDatas({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Seleção de Dificuldade'),
+        backgroundColor: Colors.deepOrange,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -37,41 +42,78 @@ class DifficultySelectionScreenDatas extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PuzzleGameScreen(difficulty: 'Fácil')),
-                );
-              },
-              child: const Text('Fácil'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PuzzleGameScreen(difficulty: 'Médio')),
-                );
-              },
-              child: const Text('Médio'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PuzzleGameScreen(difficulty: 'Difícil')),
-                );
-              },
-              child: const Text('Difícil'),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildDifficultyButton(
+                context,
+                label: 'Fácil',
+                icon: FontAwesomeIcons.smile,
+                color: Colors.blue.shade300,
+                difficulty: 'Fácil',
+              ),
+              const SizedBox(height: 20),
+              _buildDifficultyButton(
+                context,
+                label: 'Médio',
+                icon: FontAwesomeIcons.handPeace,
+                color: Colors.blue.shade500,
+                difficulty: 'Médio',
+              ),
+              const SizedBox(height: 20),
+              _buildDifficultyButton(
+                context,
+                label: 'Difícil',
+                icon: FontAwesomeIcons.fistRaised,
+                color: Colors.blue.shade700,
+                difficulty: 'Difícil',
+              ),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildDifficultyButton(
+    BuildContext context, {
+    required String label,
+    required IconData icon,
+    required Color color,
+    required String difficulty,
+  }) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        foregroundColor: Colors.white,
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PuzzleGameScreen(difficulty: difficulty),
+          ),
+        );
+      },
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 28),
+          const SizedBox(width: 10),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     );
   }

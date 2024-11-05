@@ -7,55 +7,77 @@ class JogosTela extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blue.shade700, // Fundo azul
       body: Column(
         children: [
           const Padding(
-            padding: EdgeInsets.all(36.0),
+            padding: EdgeInsets.only(top: 40.0, bottom: 10.0),
             child: Text(
-              "Escolha seu jogo",
+              "ESCOLHA SEU JOGO",
               style: TextStyle(
-                fontSize: 32,
+                fontSize: 28,
                 fontWeight: FontWeight.bold,
                 color: Colors.orange,
+                letterSpacing: 2,
               ),
             ),
           ),
-          Container(
-            height: 500,
-            child: Center( // Centraliza os botões
-              child: Container(
-                width: 450,
+          Expanded(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: GridView.count(
+                  shrinkWrap: true,
                   crossAxisCount: 2,
-                  mainAxisSpacing: 28.0,
-                  crossAxisSpacing: 23.0,
+                  mainAxisSpacing: 16.0,
+                  crossAxisSpacing: 16.0,
+                  childAspectRatio: 2.5, // Define a proporção dos botões
                   children: [
-                    buildGameTile(context, "Datas Comemorativas", () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PuzzleGameApp(),
-                        ),
-                      );
-                    }),
-                    buildGameTile(context, "Folclore", () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TelaInicial(),
-                        ),
-                      );
-                    }),
-                    buildGameTile(context, "Formas Geométricas", () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DifficultySelectionScreen(),
-                        ),
-                      );
-                    }),
-                    buildGameTile(context, "Futebol", null),
+                    buildGameTile(
+                      context,
+                      title: "DATAS COMEMORATIVAS",
+                      icon: Icons.event,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PuzzleGameApp(),
+                          ),
+                        );
+                      },
+                    ),
+                    buildGameTile(
+                      context,
+                      title: "FOLCLORE",
+                      icon: Icons.landscape,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TelaInicial(),
+                          ),
+                        );
+                      },
+                    ),
+                    buildGameTile(
+                      context,
+                      title: "FORMAS GEOMÉTRICAS",
+                      icon: Icons.category,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DifficultySelectionScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                    buildGameTile(
+                      context,
+                      title: "FUTEBOL",
+                      icon: Icons.sports_soccer,
+                      onTap: null, // Ainda sem ação
+                    ),
                   ],
                 ),
               ),
@@ -66,24 +88,36 @@ class JogosTela extends StatelessWidget {
     );
   }
 
-  Widget buildGameTile(BuildContext context, String title, VoidCallback? onTap) {
+  Widget buildGameTile(BuildContext context, {required String title, required IconData icon, VoidCallback? onTap}) {
     return InkWell(
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           color: Colors.orangeAccent,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Center(
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              offset: Offset(2, 4),
+              blurRadius: 6,
             ),
-          ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 40, color: Colors.white), // Ícone menor
+            const SizedBox(height: 8),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 14, // Tamanho de fonte reduzido
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:flutterosemeador/telas/jogos_tela.dart'; // Importar a tela de j
 import 'firebase_options.dart';
 import 'package:flutterosemeador/telas/telas_datas_comemorativas/datas_comemorativas.dart';
 import 'package:flutterosemeador/telas/telas_jogo_memoria/tela_inicial_memoria.dart';
+import 'package:flutterosemeador/telas/menu.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       // Removendo const aqui
       debugShowCheckedModeBanner: false,
       title: 'App de Autenticação',
-      home: JogosTela(), // Aqui não precisa ser const
+      home: MenuPrincipal(), // Aqui não precisa ser const
     );
   }
 }
