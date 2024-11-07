@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:html' as html;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'formas_geometricas.dart';
 
@@ -15,12 +16,31 @@ class ShapeLinkerGame extends StatelessWidget {
 }
 
 class DifficultySelectionScreen extends StatelessWidget {
+  // Função para falar o texto no Flutter Web
+  void speakWeb(String text) {
+    html.window.speechSynthesis?.cancel();
+    final utterance = html.SpeechSynthesisUtterance(text);
+    utterance.lang = 'pt-BR';
+    utterance.volume = 1.0;
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    html.window.speechSynthesis?.speak(utterance);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Escolha a Dificuldade'),
+        title: MouseRegion(
+          onEnter: (_) {
+            speakWeb("Escolha a Dificuldade");
+          },
+          onExit: (_) {
+            html.window.speechSynthesis?.cancel();
+          },
+          child: const Text('Escolha a Dificuldade'),
+        ),
         backgroundColor: Colors.deepOrange,
       ),
       body: Center(
@@ -59,35 +79,49 @@ class DifficultySelectionScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDifficultyButton(BuildContext context, {required String label, required IconData icon, required Color color, required String difficulty}) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        foregroundColor: Colors.white,
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-      ),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => GameScreen(difficulty: difficulty)),
-        );
+  Widget _buildDifficultyButton(BuildContext context,
+      {required String label,
+      required IconData icon,
+      required Color color,
+      required String difficulty}) {
+    return MouseRegion(
+      onEnter: (_) {
+        speakWeb(label); // Lê o texto do botão ao passar o mouse
       },
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 28),
-          SizedBox(width: 10),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+      onExit: (_) {
+        html.window.speechSynthesis?.cancel();
+      },
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          foregroundColor: Colors.white,
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
           ),
-        ],
+        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => GameScreen(difficulty: difficulty),
+            ),
+          );
+        },
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 28),
+            SizedBox(width: 10),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,16 +1,28 @@
+import 'package:flutter/foundation.dart'; // Para usar kIsWeb
+import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:flutterosemeador/telas/jogos_tela.dart';
-import 'package:flutterosemeador/telas/telas_jogo_memoria/jogo_da_memoria.dart';
 
 class MenuPrincipal extends StatelessWidget {
+  // Função para falar o texto no Flutter Web
+  void speakWeb(String text) {
+    html.window.speechSynthesis?.cancel();
+    final utterance = html.SpeechSynthesisUtterance(text);
+    utterance.lang = 'pt-BR';
+    utterance.volume = 1.0;
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    html.window.speechSynthesis?.speak(utterance);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Fundo branco para destacar o logo azul escuro
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
           children: [
-            // Elementos decorativos extras nas laterais
+            // Ícones de estrela decorativos nas laterais
             Positioned(
               top: 40,
               left: 20,
@@ -19,32 +31,33 @@ class MenuPrincipal extends StatelessWidget {
             Positioned(
               bottom: 80,
               right: 20,
-              child: Icon(Icons.circle, color: Colors.orange.shade200, size: 30),
+              child: Icon(Icons.star, color: Colors.orange.shade200, size: 30),
             ),
             Positioned(
               top: 150,
               right: 60,
-              child: Icon(Icons.favorite, color: Colors.orange.shade100, size: 30),
+              child: Icon(Icons.star, color: Colors.orange.shade100, size: 30),
             ),
             Positioned(
               bottom: 150,
               left: 50,
               child: Icon(Icons.star, color: Colors.orange.shade100, size: 50),
             ),
+
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Imagem central no topo
+                  // Imagem no topo da coluna de botões
                   Padding(
                     padding: const EdgeInsets.only(bottom: 30.0),
                     child: Image.asset(
-                      'assets/imagens/semeador_logo.png',
-                      height: 350, // Aumentado para dar mais destaque
+                      'assets/imagens/semeador_logo.png', // Caminho da imagem
+                      height: 350, // Ajuste o tamanho conforme necessário
                       fit: BoxFit.cover,
                     ),
                   ),
-                  
+
                   // Botão JOGAR
                   _buildButton(
                     label: 'JOGAR',
@@ -59,7 +72,7 @@ class MenuPrincipal extends StatelessWidget {
                       );
                     },
                   ),
-                  SizedBox(height: 25), // Aumentado para maior espaçamento entre botões
+                  SizedBox(height: 25),
 
                   // Botão PONTUAÇÃO
                   _buildButton(
@@ -100,35 +113,47 @@ class MenuPrincipal extends StatelessWidget {
     );
   }
 
-  // Função para criar botões personalizados
+  // Função para criar botões com acessibilidade
   Widget _buildButton({
     required String label,
     required Color color,
     required IconData icon,
     required VoidCallback onTap,
   }) {
-    return SizedBox(
-      width: 250, // Largura aumentada
-      child: ElevatedButton.icon(
-        icon: Icon(icon, color: Colors.blue.shade900, size: 32), // Ícone um pouco maior
-        label: Text(
-          label,
-          style: TextStyle(
-            color: Colors.blue.shade900,
-            fontWeight: FontWeight.bold,
-            fontSize: 22, // Fonte um pouco maior
+    return MouseRegion(
+      onEnter: (_) {
+        if (kIsWeb) {
+          speakWeb(label); // Usa a API Web Speech no navegador
+        }
+      },
+      onExit: (_) {
+        if (kIsWeb) {
+          html.window.speechSynthesis?.cancel(); // Para a fala ao sair do botão
+        }
+      },
+      child: SizedBox(
+        width: 250,
+        child: ElevatedButton.icon(
+          icon: Icon(icon, color: Colors.blue.shade900, size: 32),
+          label: Text(
+            label,
+            style: TextStyle(
+              color: Colors.blue.shade900,
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+            ),
           ),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-          padding: const EdgeInsets.symmetric(vertical: 20), // Altura aumentada
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: color,
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            shadowColor: Colors.orange.shade100,
+            elevation: 8,
           ),
-          shadowColor: Colors.orange.shade100,
-          elevation: 8,
+          onPressed: onTap,
         ),
-        onPressed: onTap,
       ),
     );
   }
