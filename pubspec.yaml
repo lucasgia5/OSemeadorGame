@@ -39,6 +39,8 @@ dependencies:
   image: ^3.0.1
   font_awesome_flutter: ^10.1.0  # Versão atual na data
   flutter_tts: ^3.0.0
+  video_player: ^2.5.0
+  google_fonts: ^5.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -68,6 +70,7 @@ flutter:
     - assets/imagens/quebra_cabeca_img/
     - assets/imagens/jogo_memoria/
     - assets/imagens/semeador_logo.png
+    - assets/video/video-entrando.mp4
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

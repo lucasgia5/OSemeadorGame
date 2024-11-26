@@ -65,57 +65,57 @@ class _JogoDaMemoriaState extends State<JogoDaMemoria> with TickerProviderStateM
     }
   }
 
-  void _onGameCompleted() {
-    _confettiController.play();
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => _buildCongratulationsDialog(),
-    );
-  }
-
-  Widget _buildCongratulationsDialog() {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Parabéns! Você completou o jogo!',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.green,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () async {
-                // Fecha o popup primeiro
-                Navigator.of(context).pop();
-                
-                // Adiciona um pequeno delay para garantir que o popup foi fechado
-                await Future.delayed(Duration(milliseconds: 300));
-                
-                // Reinicia o jogo
-                setState(() {
-                  cartas = gerarCartas(widget.personagens);
-                  cartasReveladas = List.generate(cartas.length, (index) => false);
-                  cartasCorretas = List.generate(cartas.length, (index) => false); // Reinicia o estado das cartas corretas
-                  primeiraCarta = null; // Reseta a primeira carta
-                  primeiraCartaIndex = -1; // Reseta o índice da primeira carta
-                });
-              },
-              child: Text('Reiniciar Jogo'),
-            ),
-          ],
+void _onGameCompleted() {
+  _confettiController.play();
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text(
+          'Parabéns!',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-      ),
-    );
-  }
+        content: const Text('Você completou o jogo da memória!'),
+        actionsAlignment: MainAxisAlignment.center,
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.blue[900],
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+            ),
+            onPressed: () async {
+              // Fecha o pop-up primeiro
+              Navigator.of(context).pop();
+
+              // Adiciona um pequeno delay para garantir que o pop-up foi fechado
+              await Future.delayed(Duration(milliseconds: 300));
+
+              // Reinicia o jogo
+              setState(() {
+                cartas = gerarCartas(widget.personagens);
+                cartasReveladas = List.generate(cartas.length, (index) => false);
+                cartasCorretas = List.generate(cartas.length, (index) => false); // Reinicia o estado das cartas corretas
+                primeiraCarta = null; // Reseta a primeira carta
+                primeiraCartaIndex = -1; // Reseta o índice da primeira carta
+              });
+
+              // Reinicia os fogos para o próximo uso
+              _confettiController.stop();
+            },
+            child: const Text(
+              'Reiniciar Jogo',
+              style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {

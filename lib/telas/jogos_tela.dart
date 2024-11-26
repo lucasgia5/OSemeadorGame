@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterosemeador/telas/telas_formas_geometricas/dificuldades.dart';
 import 'package:flutterosemeador/telas/telas_datas_comemorativas/datas_comemorativas.dart';
 import 'package:flutterosemeador/telas/telas_jogo_memoria/tela_inicial_memoria.dart';
+import 'package:flutterosemeador/telas/menu.dart';
 
 class JogosTela extends StatelessWidget {
   // Função para falar o texto no Flutter Web
@@ -20,6 +21,23 @@ class JogosTela extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue.shade700,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => MenuPrincipal()),
+            );
+          },
+        ),
+        title: Text(
+          "Jogos",
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+      ),
       backgroundColor: Colors.blue.shade700, // Fundo azul
       body: Column(
         children: [
@@ -35,7 +53,7 @@ class JogosTela extends StatelessWidget {
               }
             },
             child: const Padding(
-              padding: EdgeInsets.only(top: 40.0, bottom: 10.0),
+              padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
               child: Text(
                 "ESCOLHA SEU JOGO",
                 style: TextStyle(

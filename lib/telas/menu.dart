@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart'; // Para usar kIsWeb
 import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:flutterosemeador/telas/jogos_tela.dart';
+import 'package:flutterosemeador/telas/tutorial_tela.dart';
+import 'package:flutterosemeador/componentes/theme_data.dart';
 
 class MenuPrincipal extends StatelessWidget {
   // Função para falar o texto no Flutter Web
@@ -99,7 +101,7 @@ class MenuPrincipal extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => JogosTela(),
+                          builder: (context) => TutorialTela(),
                         ),
                       );
                     },

@@ -145,95 +145,108 @@ class _ShapeLinkerGameBodyState extends State<ShapeLinkerGameBody>
     matchedShapes = [];
   }
 
-  void _onGameCompleted() {
-    _confettiController.play();
-  }
+void _onGameCompleted() {
+  _confettiController.play();
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text(
+          'Parabéns!',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        content: const Text(
+          'Você completou o jogo!',
+          style: TextStyle(fontSize: 18),
+        ),
+        actionsAlignment: MainAxisAlignment.center,
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.blue[900],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop(); // Fecha o pop-up
+              setState(() {
+                _shuffleShapes(); // Reinicia o jogo
+                _confettiController.stop(); // Para os fogos para a próxima execução
+              });
+            },
+            child: const Text(
+              'Jogar novamente',
+              style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Column(
-          children: [
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: shuffledShapes
-                    .map((shape) => _buildTarget(shape, isNeutral: true))
-                    .toList(),
-              ),
+@override
+Widget build(BuildContext context) {
+  return Stack(
+    children: [
+      Column(
+        children: [
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: shuffledShapes
+                  .map((shape) => _buildTarget(shape, isNeutral: true))
+                  .toList(),
             ),
-            Divider(),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children:
-                    shapes.map((shape) => _buildDraggable(shape)).toList(),
-              ),
+          ),
+          Divider(),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: shapes.map((shape) => _buildDraggable(shape)).toList(),
             ),
-            ElevatedButton(
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.blue[900],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+              ),
               onPressed: () {
                 setState(() {
                   _shuffleShapes();
                 });
               },
-              child: Text('Recomeçar'),
+              child: const Text(
+                'Recomeçar',
+                style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ),
-          ],
+          ),
+        ],
+      ),
+      if (matchedShapes.length == shapes.length)
+        Align(
+          alignment: Alignment.topCenter,
+          child: ConfettiWidget(
+            confettiController: _confettiController,
+            blastDirectionality: BlastDirectionality.explosive,
+            shouldLoop: false,
+            colors: [Colors.red, Colors.green, Colors.blue, Colors.purple],
+          ),
         ),
-        if (matchedShapes.length == shapes.length)
-          Align(
-            alignment: Alignment.topCenter,
-            child: ConfettiWidget(
-              confettiController: _confettiController,
-              blastDirectionality: BlastDirectionality.explosive,
-              shouldLoop: false,
-              colors: [Colors.red, Colors.green, Colors.blue, Colors.purple],
-            ),
-          ),
-        if (matchedShapes.length == shapes.length)
-          Center(
-            child: Container(
-              padding: EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 10.0,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Parabéns! Você completou o jogo!',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _shuffleShapes();
-                        _onGameCompleted();
-                      });
-                    },
-                    child: Text('Reiniciar Jogo'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-      ],
-    );
-  }
+    ],
+  );
+}
+
 
   Widget _buildDraggable(String shape) {
     return Draggable<String>(

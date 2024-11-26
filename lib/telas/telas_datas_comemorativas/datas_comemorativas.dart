@@ -146,10 +146,10 @@ class DifficultySelectionScreenDatas extends StatelessWidget {
 }
 
 
+
 class PuzzleGameScreen extends StatefulWidget {
   final String difficulty;
-  const PuzzleGameScreen({Key? key, required this.difficulty})
-      : super(key: key);
+  const PuzzleGameScreen({Key? key, required this.difficulty}) : super(key: key);
 
   @override
   State<PuzzleGameScreen> createState() => _PuzzleGameScreenState();
@@ -214,11 +214,10 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
   @override
   void initState() {
     super.initState();
-    _levels = _allLevels
-        .where((level) => level.difficulty == widget.difficulty)
-        .toList();
+    _levels = _allLevels.where((level) => level.difficulty == widget.difficulty).toList();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _focusNode.requestFocus();
+      speakWeb("Bem-vindo ao jogo de palavras. O nível atual é ${widget.difficulty}");
     });
   }
 
@@ -248,7 +247,6 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
         _userInput = '';
         _controller.clear();
         _errorMessage = '';
-
         if (_currentLevelIndex < _levels.length - 1) {
           _currentLevelIndex++;
           _focusNode.requestFocus();
@@ -259,35 +257,57 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
     } else {
       setState(() {
         _errorMessage = 'Resposta incorreta, tente novamente.';
+        speakWeb(_errorMessage);
       });
     }
   }
 
   void _showCompletionDialog() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          title: const Text('Parabéns!'),
-          content: const Text('Você completou todos os níveis!'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PuzzleGameApp(),
-                          ),
-                        );
-              },
-              child: const Text('Jogar novamente'),
+  speakWeb("Parabéns, você completou todos os níveis!");
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text('Parabéns!', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        content: const Text('Você completou todos os níveis!'),
+        actionsAlignment: MainAxisAlignment.center,
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.blue[900],
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
             ),
-          ],
-        );
-      },
-    );
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const DifficultySelectionScreenDatas()),
+                (route) => false, // Remove todas as rotas anteriores
+              );
+            },
+            child: const Text(
+              'Jogar novamente',
+              style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+
+  void speakWeb(String text) {
+    html.window.speechSynthesis?.cancel();
+    final filteredText = text.replaceAll('_', '').replaceAll('  ', ' '); // Remove "_" e espaços duplos
+    final utterance = html.SpeechSynthesisUtterance(filteredText);
+    utterance.lang = 'pt-BR';
+    utterance.volume = 1.0;
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    html.window.speechSynthesis?.speak(utterance);
   }
 
   @override
@@ -301,7 +321,11 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const DifficultySelectionScreenDatas()),
+              (route) => false, // Remove todas as rotas anteriores
+            );
           },
         ),
       ),
@@ -311,16 +335,24 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                currentLevel.puzzle,
-                style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+              MouseRegion(
+                onEnter: (_) {
+                  speakWeb(currentLevel.puzzle);
+                },
+                onExit: (_) {
+                  html.window.speechSynthesis?.cancel();
+                },
+                child: Text(
+                  currentLevel.puzzle,
+                  style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
               ),
               const SizedBox(height: 20),
               Image.asset(
                 currentLevel.imagePath,
                 width: 200,
-                height: 200, // Aumenta o tamanho da imagem
+                height: 200,
               ),
               const SizedBox(height: 20),
               TextField(
@@ -331,7 +363,7 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
                     _userInput = value;
                   });
                 },
-                onSubmitted: (_) => _checkAnswer(), // Envia a resposta com Enter
+                onSubmitted: (_) => _checkAnswer(),
                 decoration: InputDecoration(
                   labelText: 'Digite a resposta',
                   errorText: _errorMessage.isNotEmpty ? _errorMessage : null,
@@ -339,20 +371,31 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                 ),
+                onTap: () {
+                  speakWeb("Digite a palavra certa.");
+                },
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _checkAnswer,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepOrange,
-                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+              MouseRegion(
+                onEnter: (_) {
+                  speakWeb("Verificar");
+                },
+                onExit: (_) {
+                  html.window.speechSynthesis?.cancel();
+                },
+                child: ElevatedButton(
+                  onPressed: _checkAnswer,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepOrange,
+                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                   ),
-                ),
-                child: const Text(
-                  'Verificar',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  child: const Text(
+                    'Verificar',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
@@ -386,3 +429,7 @@ class PuzzleLevel {
     required this.imagePath,
   });
 }
+
+
+
+
