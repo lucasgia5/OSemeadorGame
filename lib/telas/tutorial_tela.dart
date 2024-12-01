@@ -14,7 +14,7 @@ class _TutorialTelaState extends State<TutorialTela> {
     super.initState();
     // ignore: deprecated_member_use
     _controller = VideoPlayerController.network(
-      'assets/video/video-entrando.mp4', // Substitua pelo link do vídeo ou use um arquivo local
+      'assets/video/tutorial.mp4', // Substitua pelo link do vídeo ou use um arquivo local
     )
       ..initialize().then((_) {
         setState(() {}); // Atualiza a tela para mostrar o vídeo inicializado

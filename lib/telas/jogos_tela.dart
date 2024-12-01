@@ -5,6 +5,7 @@ import 'package:flutterosemeador/telas/telas_formas_geometricas/dificuldades.dar
 import 'package:flutterosemeador/telas/telas_datas_comemorativas/datas_comemorativas.dart';
 import 'package:flutterosemeador/telas/telas_jogo_memoria/tela_inicial_memoria.dart';
 import 'package:flutterosemeador/telas/menu.dart';
+import 'package:flutterosemeador/telas/telas_jogo_quebra_cabeca/selecao_dificuldades.dart';
 
 class JogosTela extends StatelessWidget {
   // Função para falar o texto no Flutter Web
@@ -119,7 +120,14 @@ class JogosTela extends StatelessWidget {
                       context,
                       title: "FUTEBOL",
                       icon: Icons.sports_soccer,
-                      onTap: null, // Ainda sem ação
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => JogoQuebraCabecaEscolhaDificuldade(),
+                          ),
+                        );
+                      }, // Ainda sem ação
                     ),
                   ],
                 ),

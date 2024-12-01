@@ -67,10 +67,10 @@ flutter:
   assets:
     - assets/imagens/datas_comemorativas/
     - assets/imagens/
-    - assets/imagens/quebra_cabeca_img/
+    - assets/imagens/quebra_cabeca/
     - assets/imagens/jogo_memoria/
     - assets/imagens/semeador_logo.png
-    - assets/video/video-entrando.mp4
+    - assets/video/tutorial.mp4
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
