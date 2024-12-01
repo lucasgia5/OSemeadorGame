@@ -74,10 +74,10 @@ void _onGameCompleted() {
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: const Text(
-          'Parabéns!',
+          'PARABÉNS!',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        content: const Text('Você completou o jogo da memória!'),
+        content: const Text('VOCÊ COMPLETOU O JOGO DA MEMÓRIA!'),
         actionsAlignment: MainAxisAlignment.center,
         actions: <Widget>[
           TextButton(
@@ -106,7 +106,7 @@ void _onGameCompleted() {
               _confettiController.stop();
             },
             child: const Text(
-              'Reiniciar Jogo',
+              'REINICIAR JOGO',
               style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
@@ -141,7 +141,7 @@ void _onGameCompleted() {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Jogo da Memória - Folclore Brasileiro'),
+        title: Text('JOGO DA MEMÓRIA - FOLCLORE BRASILEIRO'),
       ),
       body: Stack(
         children: [

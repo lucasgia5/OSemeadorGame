@@ -4,24 +4,24 @@ import 'package:flutterosemeador/telas/jogos_tela.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
-  runApp(const PuzzleGameApp());
+  runApp(const DatasComemorativas());
 }
 
-class PuzzleGameApp extends StatelessWidget {
-  const PuzzleGameApp({Key? key}) : super(key: key);
+class DatasComemorativas extends StatelessWidget {
+  const DatasComemorativas({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Puzzle de Datas Comemorativas',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const DifficultySelectionScreenDatas(),
+      home: const TelaDificuldadeDataComemorativa(),
     );
   }
 }
 
-class DifficultySelectionScreenDatas extends StatelessWidget {
-  const DifficultySelectionScreenDatas({Key? key}) : super(key: key);
+class TelaDificuldadeDataComemorativa extends StatelessWidget {
+  const TelaDificuldadeDataComemorativa({Key? key}) : super(key: key);
 
   // Função para falar o texto no Flutter Web
   void speakWeb(String text) {
@@ -46,7 +46,7 @@ class DifficultySelectionScreenDatas extends StatelessWidget {
           onExit: (_) {
             html.window.speechSynthesis?.cancel();
           },
-          child: const Text('Seleção de Dificuldade'),
+          child: const Text('SELEÇÃO DE DIFICULDADE'),
         ),
         backgroundColor: Colors.deepOrange,
         leading: IconButton(
@@ -67,7 +67,7 @@ class DifficultySelectionScreenDatas extends StatelessWidget {
             children: [
               _buildDifficultyButton(
                 context,
-                label: 'Fácil',
+                label: 'FÁCIL',
                 icon: FontAwesomeIcons.smile,
                 color: Colors.blue.shade300,
                 difficulty: 'Fácil',
@@ -75,7 +75,7 @@ class DifficultySelectionScreenDatas extends StatelessWidget {
               const SizedBox(height: 20),
               _buildDifficultyButton(
                 context,
-                label: 'Médio',
+                label: 'MÉDIO',
                 icon: FontAwesomeIcons.handPeace,
                 color: Colors.blue.shade500,
                 difficulty: 'Médio',
@@ -83,7 +83,7 @@ class DifficultySelectionScreenDatas extends StatelessWidget {
               const SizedBox(height: 20),
               _buildDifficultyButton(
                 context,
-                label: 'Difícil',
+                label: 'DIFÍCIL',
                 icon: FontAwesomeIcons.fistRaised,
                 color: Colors.blue.shade700,
                 difficulty: 'Difícil',
@@ -122,7 +122,7 @@ class DifficultySelectionScreenDatas extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PuzzleGameScreen(difficulty: difficulty),
+              builder: (context) => TelaDataComemorativa(difficulty: difficulty),
             ),
           );
         },
@@ -147,15 +147,15 @@ class DifficultySelectionScreenDatas extends StatelessWidget {
 
 
 
-class PuzzleGameScreen extends StatefulWidget {
+class TelaDataComemorativa extends StatefulWidget {
   final String difficulty;
-  const PuzzleGameScreen({Key? key, required this.difficulty}) : super(key: key);
+  const TelaDataComemorativa({Key? key, required this.difficulty}) : super(key: key);
 
   @override
-  State<PuzzleGameScreen> createState() => _PuzzleGameScreenState();
+  State<TelaDataComemorativa> createState() => _PuzzleGameScreenState();
 }
 
-class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
+class _PuzzleGameScreenState extends State<TelaDataComemorativa> {
   final List<PuzzleLevel> _allLevels = [
     PuzzleLevel(
         difficulty: 'Fácil',
@@ -179,8 +179,8 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
         imagePath: 'assets/imagens/datas_comemorativas/dia_das_craincas.png'),
     PuzzleLevel(
         difficulty: 'Médio',
-        puzzle: 'H A L _ _ W _ _ _',
-        answer: 'HALLOWEEN',
+        puzzle: 'C A _ _ _ V _ L',
+        answer: 'CARNAVAL',
         imagePath: 'assets/imagens/datas_comemorativas/halloween.png'),
     PuzzleLevel(
         difficulty: 'Médio',
@@ -256,22 +256,22 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
       });
     } else {
       setState(() {
-        _errorMessage = 'Resposta incorreta, tente novamente.';
+        _errorMessage = 'RESPOSTA INCORRETA, TENTE NOVAMENTE.';
         speakWeb(_errorMessage);
       });
     }
   }
 
   void _showCompletionDialog() {
-  speakWeb("Parabéns, você completou todos os níveis!");
+  speakWeb("PARABÉNS, VOCÊ COMPLETOU TODOS OS NÍVEIS!");
   showDialog(
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Parabéns!', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-        content: const Text('Você completou todos os níveis!'),
+        title: const Text('PARABÉNS!', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        content: const Text('PARABÉNS, VOCÊ COMPLETOU TODOS OS NÍVEIS!'),
         actionsAlignment: MainAxisAlignment.center,
         actions: <Widget>[
           TextButton(
@@ -283,12 +283,12 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const DifficultySelectionScreenDatas()),
+                MaterialPageRoute(builder: (context) => const TelaDificuldadeDataComemorativa()),
                 (route) => false, // Remove todas as rotas anteriores
               );
             },
             child: const Text(
-              'Jogar novamente',
+              'JOGAR NOVEMENTE',
               style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
@@ -316,14 +316,14 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Nível ${_currentLevelIndex + 1} - ${widget.difficulty}'),
+        title: Text('NÍVEL ${_currentLevelIndex + 1} - ${widget.difficulty}'),
         backgroundColor: Colors.deepOrange,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const DifficultySelectionScreenDatas()),
+              MaterialPageRoute(builder: (context) => const TelaDificuldadeDataComemorativa()),
               (route) => false, // Remove todas as rotas anteriores
             );
           },
@@ -365,7 +365,7 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
                 },
                 onSubmitted: (_) => _checkAnswer(),
                 decoration: InputDecoration(
-                  labelText: 'Digite a resposta',
+                  labelText: 'DIGITE A RESPOSTA',
                   errorText: _errorMessage.isNotEmpty ? _errorMessage : null,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
@@ -393,7 +393,7 @@ class _PuzzleGameScreenState extends State<PuzzleGameScreen> {
                     ),
                   ),
                   child: const Text(
-                    'Verificar',
+                    'VERIFICAR',
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ),

@@ -4,7 +4,7 @@ import 'dart:html' as html;
 import 'package:flutterosemeador/telas/telas_jogo_memoria/jogo_da_memoria.dart';
 import 'package:flutterosemeador/telas/telas_jogo_memoria/personagens_memoria.dart';
 
-class TelaInicial extends StatelessWidget {
+class TelaInicialJogoDaMemoria extends StatelessWidget {
   // Função para falar o texto no Flutter Web
   void speakWeb(String text) {
     html.window.speechSynthesis?.cancel();
@@ -28,7 +28,7 @@ class TelaInicial extends StatelessWidget {
           onExit: (_) {
             html.window.speechSynthesis?.cancel();
           },
-          child: Text('Escolha a Dificuldade'),
+          child: Text('ESCOLHA A DIFICULDADE'),
         ),
         backgroundColor: Colors.deepOrange,
       ),
@@ -40,7 +40,7 @@ class TelaInicial extends StatelessWidget {
             children: [
               _buildDifficultyButton(
                 context,
-                label: 'Fácil',
+                label: 'FÁCIL',
                 icon: FontAwesomeIcons.smile,
                 color: Colors.blue.shade300,
                 personagens: personagensFacil.cast<Personagem>(),
@@ -48,7 +48,7 @@ class TelaInicial extends StatelessWidget {
               SizedBox(height: 20),
               _buildDifficultyButton(
                 context,
-                label: 'Médio',
+                label: 'MÉDIO',
                 icon: FontAwesomeIcons.handPeace,
                 color: Colors.blue.shade500,
                 personagens: personagensMedio.cast<Personagem>(),
@@ -56,7 +56,7 @@ class TelaInicial extends StatelessWidget {
               SizedBox(height: 20),
               _buildDifficultyButton(
                 context,
-                label: 'Difícil',
+                label: 'DIFÍCIL',
                 icon: FontAwesomeIcons.fistRaised,
                 color: Colors.blue.shade700,
                 personagens: personagensDificil.cast<Personagem>(),

@@ -20,7 +20,7 @@ class DifficultySelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Escolha a Dificuldade'),
+        title: Text('ESCOLHA A DIFICULDADE'),
       ),
       body: Center(
         child: Column(
@@ -34,7 +34,7 @@ class DifficultySelectionScreen extends StatelessWidget {
                       builder: (context) => GameScreen(difficulty: 'easy')),
                 );
               },
-              child: Text('Fácil'),
+              child: Text('FÁCIL'),
             ),
             SizedBox(height: 20),
             ElevatedButton(
@@ -45,7 +45,7 @@ class DifficultySelectionScreen extends StatelessWidget {
                       builder: (context) => GameScreen(difficulty: 'medium')),
                 );
               },
-              child: Text('Médio'),
+              child: Text('MÉDIO'),
             ),
             SizedBox(height: 20),
             ElevatedButton(
@@ -56,7 +56,7 @@ class DifficultySelectionScreen extends StatelessWidget {
                       builder: (context) => GameScreen(difficulty: 'hard')),
                 );
               },
-              child: Text('Difícil'),
+              child: Text('DIFÍCIL'),
             ),
           ],
         ),
@@ -74,7 +74,7 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Jogo - Dificuldade: $difficulty'),
+        title: Text('JOGO - DIFICULDADE:  $difficulty'),
       ),
       body: ShapeLinkerGameBody(difficulty: difficulty),
     );
@@ -154,11 +154,11 @@ void _onGameCompleted() {
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: const Text(
-          'Parabéns!',
+          'PARABÉNS!',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         content: const Text(
-          'Você completou o jogo!',
+          'VOCÊ COMPLETOU O JOGO!',
           style: TextStyle(fontSize: 18),
         ),
         actionsAlignment: MainAxisAlignment.center,
@@ -179,7 +179,7 @@ void _onGameCompleted() {
               });
             },
             child: const Text(
-              'Jogar novamente',
+              'JOGAR NOVAMENTE',
               style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
@@ -226,7 +226,7 @@ Widget build(BuildContext context) {
                 });
               },
               child: const Text(
-                'Recomeçar',
+                'RECOMEÇAR',
                 style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),

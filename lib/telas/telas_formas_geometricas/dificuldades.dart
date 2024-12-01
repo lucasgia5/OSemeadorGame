@@ -9,7 +9,7 @@ class ShapeLinkerGame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Shape Linker Game',
+      title: 'FORMAS GEOMÉTRICAS',
       home: DifficultySelectionScreen(),
     );
   }
@@ -34,12 +34,12 @@ class DifficultySelectionScreen extends StatelessWidget {
       appBar: AppBar(
         title: MouseRegion(
           onEnter: (_) {
-            speakWeb("Escolha a Dificuldade");
+            speakWeb("ESCOLHA A DIFICULDADE");
           },
           onExit: (_) {
             html.window.speechSynthesis?.cancel();
           },
-          child: const Text('Escolha a Dificuldade'),
+          child: const Text('ESCOLHA A DIFICULDADE'),
         ),
         backgroundColor: Colors.deepOrange,
       ),
@@ -51,7 +51,7 @@ class DifficultySelectionScreen extends StatelessWidget {
             children: [
               _buildDifficultyButton(
                 context,
-                label: 'Fácil',
+                label: 'FÁCIL',
                 icon: FontAwesomeIcons.smile,
                 color: Colors.blue.shade300,
                 difficulty: 'easy',
@@ -59,7 +59,7 @@ class DifficultySelectionScreen extends StatelessWidget {
               SizedBox(height: 20),
               _buildDifficultyButton(
                 context,
-                label: 'Médio',
+                label: 'MÉDIO',
                 icon: FontAwesomeIcons.handPeace,
                 color: Colors.blue.shade500,
                 difficulty: 'medium',
@@ -67,7 +67,7 @@ class DifficultySelectionScreen extends StatelessWidget {
               SizedBox(height: 20),
               _buildDifficultyButton(
                 context,
-                label: 'Difícil',
+                label: 'DIFÍCIL',
                 icon: FontAwesomeIcons.fistRaised,
                 color: Colors.blue.shade700,
                 difficulty: 'hard',

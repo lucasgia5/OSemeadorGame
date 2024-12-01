@@ -85,7 +85,7 @@ class JogosTela extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PuzzleGameApp(),
+                            builder: (context) => DatasComemorativas(),
                           ),
                         );
                       },
@@ -98,7 +98,7 @@ class JogosTela extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => TelaInicial(),
+                            builder: (context) => TelaInicialJogoDaMemoria(),
                           ),
                         );
                       },
